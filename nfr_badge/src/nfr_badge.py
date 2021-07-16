@@ -80,7 +80,7 @@ class Badge:
         if len(finded) > 0:
             return result
         else:
-            return content[:new_line + 1] + "\n![%s](%s) \n" % (badge_name, new_badge_url) + content[new_line + 1:]
+            return content[:new_line + 1] + "![%s](%s) \n" % (badge_name, new_badge_url) + content[new_line + 1:]
 
 
 class ReadmeMD:
@@ -136,3 +136,4 @@ def main():
 
 if __name__== "__main__":
     main()
+

@@ -44,7 +44,6 @@ class Checklist:
         return os.path.splitext(bn)[0]
 
 
-
 class Badge:
 
     @staticmethod
@@ -77,10 +76,11 @@ class Badge:
         subst = "\\1(%s)" % new_badge_url
         result = re.sub(regex, subst, content, 0, re.MULTILINE)
         finded = re.findall(regex, content, re.MULTILINE)
+        new_line = content[1 : ].find("\n")
         if len(finded) > 0:
             return result
         else:
-            return "![%s](%s) \n" % (badge_name, new_badge_url) + content
+            return content[:new_line + 1] + "\n![%s](%s) \n" % (badge_name, new_badge_url) + content[new_line + 1:]
 
 
 class ReadmeMD:
@@ -110,7 +110,7 @@ class ReadmeMD:
 def get_cli_args():
     parser = argparse.ArgumentParser(description='NFR')
     parser.add_argument('--readme', type=str, required=True, help='Output readme file')
-    parser.add_argument('fnames', type=str, nargs='+', help='Checklist files')
+    parser.add_argument('--fnames', type=str, nargs='+', help='Checklist files')
     args = parser.parse_args()
     return args.readme, args.fnames
 
@@ -133,5 +133,6 @@ def main():
             )
         )
 
+
 if __name__== "__main__":
-  main()
+    main()
